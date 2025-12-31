@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rexen Novart T. Nacional - Personal Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color) !important;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        /* Hero Mystery Face Container */
+        .hero-face-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        .hero-face-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 1s ease, transform 1s ease;
+        }
+
+        .hero-face-img.mystery {
+            filter: brightness(0) contrast(0);
+            transform: scale(1.1);
+        }
+
+        .hero-face-img.revealed {
+            filter: brightness(1) contrast(1);
+            transform: scale(1);
+        }
+
+        .hero-mystery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #000, #222);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, transform 1s ease, background-color 0.3s ease;
+            opacity: 1;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .hero-mystery-overlay:hover {
+            background: linear-gradient(45deg, #111, #333);
+        }
+
+        .hero-mystery-overlay.hidden {
+            opacity: 0;
+            transform: scale(1.5);
+            pointer-events: none;
+        }
+
+        .hero-question-mark {
+            font-size: 5rem;
+            color: white;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            cursor: pointer;
+        }
+
+        .hero-mystery-text {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint i {
+            margin-left: 5px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        .about-section {
+            padding: 100px 0;
+            background-color: var(--light-bg);
+        }
+
+        /* Normal Profile Image in About Section */
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .skills-section {
+            padding: 100px 0;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .projects-section {
+            padding: 100px 0;
+            background-color: var(--light-bg);
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .contact-section {
+            padding: 100px 0;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .btn-custom {
+            background-color: white;
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-face-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .hero-question-mark {
+                font-size: 3.5rem;
+            }
+            
+            .profile-img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Design · Code · Create</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Mystery Face in Hero Section -->
+                    <div class="hero-face-container">
+                        <img src="Gemini_Generated_Image_4z5lo14z5lo14z5l.png" alt="Rexen Nacional" class="hero-face-img mystery">
+                        <div class="hero-mystery-overlay">
+                            <div class="hero-question-mark">?</div>
+                        </div>
+                    </div>
+                    
+                    <p class="hero-mystery-text">Who is behind the code?</p>
+                    
+                    <h1 class="hero-title fade-in">Rexen Novart T. Nacional</h1>
+                    <p class="hero-subtitle fade-in">BSCS - 1A Student | Aspiring Software Developer</p>
+                    <p class="lead mb-4 fade-in">Passionate about technology, programming, and creating innovative solutions</p>
+                    <a href="#about" class="btn btn-custom btn-lg fade-in">Discover More</a>
+                </div>
+            </div>
+            
+            <div class="scroll-hint fade-in">
+                Scroll to reveal
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center mb-4">
+                    <!-- Normal face in About section -->
+                    <img src="Gemini_Generated_Image_4z5lo14z5lo14z5l.png" alt="Rexen Nacional" class="profile-img fade-in">
+                </div>
+                <div class="col-lg-8">
+                    <div class="fade-in">
+                        <h3 class="mb-3">Hello! I'm Rexen</h3>
+                        <p class="mb-3">I'm a first-year Computer Science student passionate about software development and technology. I enjoy solving complex problems and creating efficient solutions through code.</p>
+                        <p class="mb-3">Currently pursuing my Bachelor's degree in Computer Science, I'm constantly learning and expanding my skills in various programming languages and technologies.</p>
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><strong>Name:</strong> Rexen Novart T. Nacional</li>
+                                    <li><strong>Course:</strong> BSCS - 1A</li>
+                                    <li><strong>Email:</strong> rexennovartnacional@gmail.com</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><strong>Location:</strong> Philippines</li>
+                                    <li><strong>Status:</strong> Student</li>
+                                    <li><strong>Interest:</strong> Web Development</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title fade-in">My Skills</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h4>HTML/CSS</h4>
+                        <p>Creating responsive and modern web designs</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <h4>JavaScript</h4>
+                        <p>Building interactive web applications</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h4>Python</h4>
+                        <p>Developing efficient backend solutions</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Database</h4>
+                        <p>MySQL and database management</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fab fa-bootstrap"></i>
+                        </div>
+                        <h4>Bootstrap</h4>
+                        <p>Rapid frontend development</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                        <h4>Git</h4>
+                        <p>Version control and collaboration</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Responsive Design</h4>
+                        <p>Mobile-first approach</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="skill-card fade-in">
+                        <div class="skill-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>Problem Solving</h4>
+                        <p>Algorithmic thinking</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-title fade-in">My Projects</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-in">
+                        <img src="portfolio icon.png" class="project-img w-100" alt="Personal Website">
+                        <div class="p-4">
+                            <h4>Personal Portfolio</h4>
+                            <p>A responsive personal website built with HTML, CSS, and Bootstrap</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-primary">HTML</span>
+                                <span class="badge bg-info">CSS</span>
+                                <span class="badge bg-warning">Bootstrap</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-in">
+                        <img src="portfolio icon.png" class="project-img w-100" alt="Data Logger">
+                        <div class="p-4">
+                            <h4>Personal Data Logger</h4>
+                            <p>Python application for managing personal entries and data</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-success">Python</span>
+                                <span class="badge bg-secondary">File Handling</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-in">
+                        <img src="portfolio icon.png" class="project-img w-100" alt="Sports System">
+                        <div class="p-4">
+                            <h4>Sports Registration System</h4>
+                            <p>Intramurals registration system for student sports events</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-success">Python</span>
+                                <span class="badge bg-primary">Database</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="contact-info fade-in">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h5>Email</h5>
+                                <p>rexennovartnacional@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="contact-info fade-in">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h5>Phone</h5>
+                                <p>+63 910 124 5007</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="contact-info fade-in">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <h5>Location</h5>
+                                <p>Philippines</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links fade-in">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Rexen Novart T. Nacional. All Rights Reserved.</p>
+            <p>BSCS - 1A Student</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+            } else {
+                document.querySelector('.navbar').style.backgroundColor = 'var(--primary-color)';
+            }
+        });
+
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        // Mystery face reveal in hero section on scroll
+        const heroFaceImg = document.querySelector('.hero-face-img');
+        const heroMysteryOverlay = document.querySelector('.hero-mystery-overlay');
+        const aboutSection = document.getElementById('about');
+
+        // Click to reveal face
+        heroMysteryOverlay.addEventListener('click', function() {
+            heroFaceImg.classList.remove('mystery');
+            heroFaceImg.classList.add('revealed');
+            this.classList.add('hidden');
+        });
+
+        // Also make the image clickable
+        heroFaceImg.addEventListener('click', function() {
+            if (heroFaceImg.classList.contains('mystery')) {
+                heroFaceImg.classList.remove('mystery');
+                heroFaceImg.classList.add('revealed');
+                heroMysteryOverlay.classList.add('hidden');
+            }
+        });
+
+        const revealFaceOnScroll = () => {
+            const aboutSectionTop = aboutSection.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            // Start revealing when about section comes into view (10% threshold)
+            if (aboutSectionTop < windowHeight * 0.9) {
+                // Remove mystery filter if still hidden
+                if (heroFaceImg.classList.contains('mystery')) {
+                    heroFaceImg.classList.remove('mystery');
+                    heroFaceImg.classList.add('revealed');
+                    heroMysteryOverlay.classList.add('hidden');
+                }
+            } else {
+                // Only reset if face was revealed by scroll, not by click
+                if (!heroMysteryOverlay.classList.contains('hidden')) {
+                    heroFaceImg.classList.add('mystery');
+                    heroFaceImg.classList.remove('revealed');
+                }
+            }
+        };
+
+        // Combined scroll event listener
+        window.addEventListener('scroll', () => {
+            fadeInOnScroll();
+            revealFaceOnScroll();
+        });
+        
+        // Initial check
+        fadeInOnScroll();
+        revealFaceOnScroll();
+    </script>
+</body>
+</html>
